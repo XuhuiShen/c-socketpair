@@ -23,10 +23,10 @@ int main()
 	printf("sockpair: s[0]: %d, s[1]: %d.\n", s[0], s[1]);
 
         if ((pid = fork()) > 0) {
-                printf("Parent process's pid is %d\n", getpid());
+                printf("parent process's pid is %d\n", getpid());
         } else if (pid == 0) {
-                printf("Fork child process successed\n");
-                printf("Child process's pid is: %d\n", getpid());
+                printf("fork child process successed\n");
+                printf("child process's pid is: %d\n", getpid());
 		printf("to fork test process!\n");
 
 		char s0[4], s1[4];
@@ -36,17 +36,17 @@ int main()
 		if ((pid = fork()) == 0) {
 			printf("s0: %s, s1: %s\n", s0, s1);
 			execl("/home/huihui/socketpair/test.out", "test.out", s0,
-			      s1, (char *)NULL);
+				s1, (char *)NULL);
 			perror("execl() failure!\n");
 		}
 		printf("sockpair: s[0]: %d, s[1]: %d.\n", s[0], s[1]);
                 close(s[1]);
                 if ((w = write(s[0], string, strlen(string))) == -1) {
-                        printf("Write socket error: %s\n", strerror(errno));
+                        printf("write socket error: %s\n", strerror(errno));
                         exit(-1);
                 }
         } else {
-                printf("Fork failed: %s\n", strerror(errno));
+                printf("fork failed: %s\n", strerror(errno));
                 exit(-1);
         }
 	printf("to forever loop!\n");
