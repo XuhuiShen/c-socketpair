@@ -17,7 +17,8 @@ int main()
         pid_t pid;
 
         if (socketpair(AF_UNIX, SOCK_STREAM, 0, s) == -1) {
-                printf("create unnamed socket pair failed: %s\n", strerror(errno));
+                printf("create unnamed socket pair failed: %s\n",
+			strerror(errno));
                 exit(-1);
         }
 
@@ -48,7 +49,7 @@ int main()
 		printf("sockpair: s[0]: %d, s[1]: %d.\n", s[0], s[1]);
 
                 close(s[1]);
-                if 4((w = write(s[0], string, strlen(string))) == -1) {
+                if ((w = write(s[0], string, strlen(string))) == -1) {
                         printf("write socket error: %s\n", strerror(errno));
                         exit(-1);
                 }
