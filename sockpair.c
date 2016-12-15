@@ -7,6 +7,7 @@
 #include <sys/socket.h>
 #include <stdlib.h>
 #include <unistd.h>
+#include <fcntl.h>
 
 int main()
 {
@@ -21,6 +22,12 @@ int main()
         }
 
 	printf("sockpair: s[0]: %d, s[1]: %d.\n", s[0], s[1]);
+
+        int flags = fcntl(s[0], F_GETFL, 0);
+        fcntl(s[0], F_SETFL, flags | O_NONBLOCK);
+
+        flags = fcntl(s[1], F_GETFL, 0);
+        fcntl(s[1], F_SETFL, flags | O_NONBLOCK);
 
         if ((pid = fork()) > 0) {
                 printf("parent process's pid is %d\n", getpid());
