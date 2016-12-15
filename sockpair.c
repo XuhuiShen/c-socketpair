@@ -54,8 +54,6 @@ int main()
                         printf("write socket error: %s\n", strerror(errno));
                         exit(-1);
                 }
-		printf("hhhhhhhhhhhhhhhhhhhhhhhhhhh\n");
-
         } else {
                 printf("fork failed: %s\n", strerror(errno));
                 exit(-1);

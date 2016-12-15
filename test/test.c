@@ -29,8 +29,6 @@ int main(int argc, char *argv[])
                        getpid(), strerror(errno));
         }
 
-	printf("HHHHHHHHHHHHHHHHHHHHHHHHHHH\n");
-
         printf("pid %d read string in same process: %s\n", getpid(), buf);
         printf("test successed, %d\n", getpid());
 }
