@@ -23,11 +23,15 @@ int main()
 
 	printf("sockpair: s[0]: %d, s[1]: %d.\n", s[0], s[1]);
 
-        int flags = fcntl(s[0], F_GETFL, 0);
-        fcntl(s[0], F_SETFL, flags | O_NONBLOCK);
+        /* int flags = fcntl(s[0], F_GETFL, 0); */
+        /* fcntl(s[0], F_SETFL, flags | O_NONBLOCK); */
 
-        flags = fcntl(s[1], F_GETFL, 0);
-        fcntl(s[1], F_SETFL, flags | O_NONBLOCK);
+        /* flags = fcntl(s[1], F_GETFL, 0); */
+        /* fcntl(s[1], F_SETFL, flags | O_NONBLOCK); */
+
+        char s0[4], s1[4];
+        sprintf(s0, "%d", s[0]);
+        sprintf(s1, "%d", s[1]);
 
         if ((pid = fork()) > 0) {
                 printf("parent process's pid is %d\n", getpid());
@@ -36,19 +40,15 @@ int main()
                 printf("child process's pid is: %d\n", getpid());
 		printf("to fork test process!\n");
 
-		char s0[4], s1[4];
-		sprintf(s0, "%d", s[0]);
-		sprintf(s1, "%d", s[1]);
-
 		if ((pid = fork()) == 0) {
-			printf("s0: %s, s1: %s\n", s0, s1);
-			execl("/home/huihui/socketpair/test.out", "test.out", s0,
+			execl("/home/huihui/socketpair/a.out", "a.out", s0,
 				s1, (char *)NULL);
 			perror("execl() failure!\n");
 		}
 		printf("sockpair: s[0]: %d, s[1]: %d.\n", s[0], s[1]);
+
                 close(s[1]);
-                if ((w = write(s[0], string, strlen(string))) == -1) {
+                if 4((w = write(s[0], string, strlen(string))) == -1) {
                         printf("write socket error: %s\n", strerror(errno));
                         exit(-1);
                 }
