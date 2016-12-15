@@ -21,13 +21,15 @@ int main(int argc, char *argv[])
         printf("test sockpair: s[0]: %d, s[1]: %d.\n", s[0], s[1]);
         close(s[0]);
 
-        int r;
+        int r = -1;
         char *buf = (char *)calloc(1, BUF_SIZE);
-        if ((r = read(s[1], buf, BUF_SIZE)) == -1) {
+        while (r == -1) {
+		r = read(s[1], buf, BUF_SIZE);
                 printf("pid %d read from socket error: %s\n",
                        getpid(), strerror(errno));
-                exit(-1);
         }
+
+	printf("HHHHHHHHHHHHHHHHHHHHHHHHHHH\n");
 
         printf("pid %d read string in same process: %s\n", getpid(), buf);
         printf("test successed, %d\n", getpid());
